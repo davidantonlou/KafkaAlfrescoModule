@@ -1,5 +1,5 @@
-/alf_data_dev
-/target
+alf_data_dev
+target
 *.log
 *.iml
 .idea
