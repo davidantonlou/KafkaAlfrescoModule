@@ -1,0 +1,8 @@
+org/alfresco/kafkaModule/model/KafkaEvent.class
+org/alfresco/kafkaModule/model/KafkaEvent$EventType.class
+org/alfresco/kafkaModule/producer/KafkaAlfrescoProducer.class
+org/alfresco/kafkaModule/producer/Producer.class
+org/alfresco/kafkaModule/utils/KafkaConstants$KAFKA_SERVER.class
+org/alfresco/kafkaModule/behaviour/KafkaBehaviour.class
+org/alfresco/kafkaModule/utils/KafkaConstants.class
+org/alfresco/kafkaModule/utils/KafkaConstants$KAFKA_TOPICS.class

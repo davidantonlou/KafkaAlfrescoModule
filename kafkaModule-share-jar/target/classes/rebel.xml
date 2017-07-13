@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application generated-by="maven" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_1.xsd">
+
+	<classpath fallback="all">
+		<dir name="/Users/davidanton/development/github/kafkaModule/kafkaModule-share-jar/target/classes">
+		</dir>
+		<dir name="/Users/davidanton/development/github/kafkaModule/kafkaModule-share-jar/target/test-classes">
+		</dir>
+	</classpath>
+
+</application>
