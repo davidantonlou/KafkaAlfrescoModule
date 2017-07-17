@@ -9,6 +9,10 @@ This project use:
  * Logstash 5.5
  * Elasticsearch 5.5
  * Kibana 5.5
+ 
+ 
+ ![alt text](https://github.com/davidantonlou/KafkaAlfrescoModule/src/resources/module_schema.png)
+
 
 
 # Build and Run Alfresco
@@ -24,7 +28,7 @@ Run embedded Tomcat + H2 DB with `mvn clean install -DskipTests=true alfresco:ru
  
 # Kafka Consumer
 
-Run `.bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic TOPIC_TYPE` and view all generated messages in real time.
+Run `./bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic TOPIC_TYPE` and view all generated messages in real time.
   
   
 # Run Elasticsearch Stack
