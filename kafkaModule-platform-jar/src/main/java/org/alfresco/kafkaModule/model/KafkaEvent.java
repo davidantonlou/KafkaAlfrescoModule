@@ -7,9 +7,10 @@ import java.util.Date;
  */
 public class KafkaEvent {
     public static enum EventType {
-        CREATE,
-        UPDATE,
-        DELETE
+        CREATE_NODE,
+        UPDATE_NODE,
+        DELETE_NODE,
+        OTHER
     }
 
     private EventType type;

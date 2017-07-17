@@ -1,5 +1,6 @@
 package org.alfresco.kafkaModule.behaviour;
 
+import org.alfresco.kafkaModule.model.KafkaEvent;
 import org.alfresco.kafkaModule.producer.Producer;
 import org.alfresco.kafkaModule.utils.KafkaConstants;
 import org.alfresco.model.ContentModel;
@@ -76,26 +77,30 @@ public class KafkaBehaviour implements NodeServicePolicies.OnCreateNodePolicy, N
     }
 
     private String createNodeRefInfoMessage(String topic, NodeRef nodeRef){
+        KafkaEvent event = new KafkaEvent();
+        event.setNodeRef(nodeRef.toString());
+        event.setDate(new Date());
         if (topic.equals(KafkaConstants.KAFKA_TOPICS.CREATE_NODE.toString())){
-            return new StringBuilder().append(nodeRef.toString()).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_NAME)).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_CREATOR)).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_CREATED)).toString();
+            event.setType(KafkaEvent.EventType.CREATE_NODE);
+            event.setAuthor(nodeService.getProperty(nodeRef, ContentModel.PROP_CREATOR).toString());
         } else if (topic.equals(KafkaConstants.KAFKA_TOPICS.UPDATE_NODE.toString())){
-            return new StringBuilder().append(nodeRef.toString()).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_NAME)).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_MODIFIER)).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_MODIFIED)).toString();
+            event.setType(KafkaEvent.EventType.UPDATE_NODE);
+            event.setAuthor(nodeService.getProperty(nodeRef, ContentModel.PROP_MODIFIER).toString());
         } else if (topic.equals(KafkaConstants.KAFKA_TOPICS.DELETE_NODE.toString())){
-            return new StringBuilder().append(nodeRef.toString()).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_NAME)).append(KafkaConstants.SEPARATOR).
-                    append(AuthenticationUtil.getFullyAuthenticatedUser()).append(KafkaConstants.SEPARATOR).
-                    append(new Date().toString()).toString();
+            event.setType(KafkaEvent.EventType.DELETE_NODE);
+            event.setAuthor(AuthenticationUtil.getFullyAuthenticatedUser().toString());
         } else {
-            return new StringBuilder().append(nodeRef.toString()).append(KafkaConstants.SEPARATOR).
-                    append(nodeService.getProperty(nodeRef, ContentModel.PROP_NAME)).append(KafkaConstants.SEPARATOR).
-                    append(new Date().toString()).toString();
+            event.setType(KafkaEvent.EventType.OTHER);
+            event.setAuthor(AuthenticationUtil.getFullyAuthenticatedUser().toString());
         }
+
+        return returnMessage(event);
+    }
+
+    private String returnMessage(KafkaEvent event) {
+        return new StringBuilder().append(event.getNodeRef()).append(KafkaConstants.SEPARATOR).
+                append(event.getAuthor()).append(KafkaConstants.SEPARATOR).
+                append(event.getDate()).toString();
     }
 
     private void insertKafkaMessage(String topic, String message) {
