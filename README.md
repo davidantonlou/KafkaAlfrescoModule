@@ -11,7 +11,7 @@ This project use:
  * Kibana 5.5
  
  
- ![alt text](https://github.com/davidantonlou/KafkaAlfrescoModule/src/resources/module_schema.png)
+ ![alt text](https://github.com/davidantonlou/KafkaAlfrescoModule/blob/master/src/resources/module_schema.png)
 
 
 
